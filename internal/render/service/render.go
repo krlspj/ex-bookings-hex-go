@@ -17,6 +17,7 @@ import (
 type RenderService interface {
 	RenderTemplate(w http.ResponseWriter, tmpl string, td *domain.TemplateData)
 	CreateTemplateCache() (map[string]*template.Template, error)
+	RenderHtml(w http.ResponseWriter, tmpl string) error
 }
 
 type tmplService struct {
@@ -30,6 +31,19 @@ func NewTemplates(a *config.AppConfig) *tmplService {
 		app:       a,
 		functions: template.FuncMap{},
 	}
+}
+
+func (s *tmplService) RenderHtml(w http.ResponseWriter, tmpl string) error {
+	t, err := template.ParseFiles("./html/" + tmpl)
+	if err != nil {
+		return err
+	}
+	err = t.Execute(w, nil)
+	if err != nil {
+		return err
+	}
+	return nil
+
 }
 
 func (s *tmplService) RenderTemplate(w http.ResponseWriter, tmpl string, td *domain.TemplateData) {

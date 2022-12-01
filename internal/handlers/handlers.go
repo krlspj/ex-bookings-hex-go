@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/krlspj/ex-bookings-hex-go/internal/config"
@@ -40,4 +41,12 @@ func (h *HandlerRepo) About(w http.ResponseWriter, r *http.Request) {
 	h.rs.RenderTemplate(w, "about.page.tmpl", &domain.TemplateData{
 		StringMap: stringMap,
 	})
+}
+
+func (h *HandlerRepo) Index(w http.ResponseWriter, r *http.Request) {
+	err := h.rs.RenderHtml(w, "index.html")
+	if err != nil {
+		log.Println("[ERROR] rendering template index.html:", err.Error())
+	}
+
 }

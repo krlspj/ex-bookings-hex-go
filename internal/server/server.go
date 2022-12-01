@@ -62,8 +62,15 @@ func (s *Server) registerRoutes() http.Handler {
 	mux.Use(s.ms.NoSrurf)
 	mux.Use(s.ms.SessionLoad)
 
+	// routes
 	mux.Get("/", s.h.Home)
 	mux.Get("/about", s.h.About)
+	mux.Get("/index", s.h.Index)
+
+	// file server for static files
+	fileServer := http.FileServer(http.Dir("./static/"))
+	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
+
 	return mux
 }
 
