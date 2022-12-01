@@ -26,7 +26,7 @@ func NewMiddleware(a *config.AppConfig) *DefMiddlewareService {
 
 func (s *DefMiddlewareService) WritetoConsole(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("Hit the page")
+		fmt.Println("Hit the page by:", r.RemoteAddr)
 		next.ServeHTTP(w, r)
 	})
 }
