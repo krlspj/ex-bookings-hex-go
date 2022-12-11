@@ -50,3 +50,18 @@ func (h *HandlerRepo) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func (h *HandlerRepo) Generals(w http.ResponseWriter, r *http.Request) {
+	templateName := "generals.html"
+	err := h.rs.RenderHtml(w, templateName)
+	if err != nil {
+		log.Println("[ERROR] rendering template "+templateName+":", err.Error())
+	}
+}
+func (h *HandlerRepo) Majors(w http.ResponseWriter, r *http.Request) {
+	templateName := "majors.html"
+	err := h.rs.RenderHtml(w, templateName)
+	if err != nil {
+		log.Println("[ERROR] rendering template "+templateName+":", err.Error())
+	}
+}

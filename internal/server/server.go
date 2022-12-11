@@ -66,6 +66,9 @@ func (s *Server) registerRoutes() http.Handler {
 	mux.Get("/", s.h.Home)
 	mux.Get("/about", s.h.About)
 	mux.Get("/index", s.h.Index)
+	// rooms
+	mux.Get("/rooms/generals", s.h.Generals)
+	mux.Get("/rooms/majors", s.h.Majors)
 
 	// file server for static files
 	fileServer := http.FileServer(http.Dir("./static/"))
